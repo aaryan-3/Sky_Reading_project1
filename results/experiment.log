@@ -1,0 +1,45 @@
+9s NO2 image_only resnet50 ridge {'n_pca': 256, 'alpha': 0.01} 0.279
+11s NO2 image_only effnet_lite4 ridge {'n_pca': 256, 'alpha': 0.01} 0.283
+15s NO2 image_only densenet121 ridge {'n_pca': 256, 'alpha': 0.01} 0.199
+16s NO2 image_only resnet18 ridge {'n_pca': 128, 'alpha': 0.01} 0.333
+21s NO2 image_only mobilenetv2 ridge {'n_pca': 256, 'alpha': 0.01} 0.316
+34s NO2 image_only densenet121 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.2, 'wd': 0.01, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 36} 0.251
+42s NO2 image_hour resnet50 ridge {'n_pca': 256, 'alpha': 100} 0.293
+45s NO2 image_hour effnet_lite4 ridge {'n_pca': 256, 'alpha': 10} 0.281
+47s NO2 image_hour densenet121 ridge {'n_pca': 256, 'alpha': 100} 0.201
+48s NO2 image_hour resnet18 ridge {'n_pca': 128, 'alpha': 0.01} 0.337
+52s NO2 image_hour mobilenetv2 ridge {'n_pca': 256, 'alpha': 10} 0.339
+71s NO2 image_hour densenet121 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.2, 'wd': 0.01, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 82} 0.217
+80s NO2 image_pm_hour resnet50 ridge {'n_pca': 256, 'alpha': 1} 0.277
+82s NO2 image_pm_hour effnet_lite4 ridge {'n_pca': 128, 'alpha': 1} 0.257
+85s NO2 image_pm_hour densenet121 ridge {'n_pca': 256, 'alpha': 10} 0.155
+86s NO2 image_pm_hour resnet18 ridge {'n_pca': 256, 'alpha': 0.01} 0.352
+90s NO2 image_pm_hour mobilenetv2 ridge {'n_pca': 256, 'alpha': 0.01} 0.285
+104s NO2 image_pm_hour densenet121 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.2, 'wd': 0.001, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 43} 0.201
+116s O3 image_only resnet50 ridge {'n_pca': 32, 'alpha': 0.01} 0.224
+119s O3 image_only effnet_lite4 ridge {'n_pca': 16, 'alpha': 0.01} 0.256
+122s O3 image_only densenet121 ridge {'n_pca': 8, 'alpha': 0.01} 0.244
+123s O3 image_only resnet18 ridge {'n_pca': 16, 'alpha': 0.01} 0.242
+127s O3 image_only mobilenetv2 ridge {'n_pca': 32, 'alpha': 0.01} 0.261
+140s O3 image_only resnet50 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.2, 'wd': 0.001, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 31} 0.213
+147s O3 image_hour resnet50 ridge {'n_pca': 8, 'alpha': 1000} 0.197
+150s O3 image_hour effnet_lite4 ridge {'n_pca': 16, 'alpha': 100} 0.192
+153s O3 image_hour densenet121 ridge {'n_pca': 256, 'alpha': 10000} 0.176
+153s O3 image_hour resnet18 ridge {'n_pca': 16, 'alpha': 1000} 0.198
+157s O3 image_hour mobilenetv2 ridge {'n_pca': 8, 'alpha': 1000} 0.219
+172s O3 image_hour densenet121 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.5, 'wd': 0.001, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 60} 0.156
+179s O3 image_pm_hour resnet50 ridge {'n_pca': 8, 'alpha': 1000} 0.185
+182s O3 image_pm_hour effnet_lite4 ridge {'n_pca': 16, 'alpha': 100} 0.18
+185s O3 image_pm_hour densenet121 ridge {'n_pca': 256, 'alpha': 10000} 0.175
+186s O3 image_pm_hour resnet18 ridge {'n_pca': 16, 'alpha': 1000} 0.194
+190s O3 image_pm_hour mobilenetv2 ridge {'n_pca': 8, 'alpha': 1000} 0.208
+198s O3 image_pm_hour densenet121 mlp {'n_pca': 128, 'hidden': 64, 'dropout': 0.2, 'wd': 0.001, 'noise': 0.5, 'lr': 0.001, 'epochs': 300, 'patience': 30, 'best_epoch': 5} 0.131
+done main 216s
+cv NO2 image_only [0.3327605277674296, 0.040610646647198954]
+cv NO2 image_hour [0.27037539642203007, 0.015058442891811658]
+cv NO2 image_pm_hour [0.5087922330836082, 0.0292333311909796]
+cv NO2 pm_hour_only [0.3653002951399724, 0.01884806513684337]
+cv O3 image_only [0.21369062220120938, 0.09619012433063319]
+cv O3 image_hour [0.2795373453333296, 0.01869597834100963]
+cv O3 image_pm_hour [0.28994594729433215, 0.04217001504792659]
+cv O3 pm_hour_only [0.02678694280311274, 0.014377922042741013]

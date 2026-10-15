@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sky Reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,500;112,700;125,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F0; --panel:#FFFFFF; --ink:#1D2B2A; --muted:#5B6967; --line:#D3DAD8;
+  --no2:#9A4A2B; --no2-soft:#F4E7E0; --o3:#2E6F95; --o3-soft:#E2EEF5;
+  --b0:#3C8D5A; --b1:#9DBA4E; --b2:#E2B33C; --b3:#D9822B; --b4:#C0392B; --b5:#7B1E2B;
+  --focus:#2E6F95;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16201F; --panel:#1F2B2A; --ink:#E6ECEA; --muted:#9FAEAB; --line:#33423F;
+    --no2:#E08A63; --no2-soft:#3A2A23; --o3:#73B3D8; --o3-soft:#1F3340; --focus:#73B3D8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16201F; --panel:#1F2B2A; --ink:#E6ECEA; --muted:#9FAEAB; --line:#33423F;
+  --no2:#E08A63; --no2-soft:#3A2A23; --o3:#73B3D8; --o3-soft:#1F3340; --focus:#73B3D8;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 24px 64px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px}
+h1{font:800 clamp(30px,5vw,46px)/1 "Archivo",sans-serif;font-stretch:125%;letter-spacing:-.01em;margin:0}
+.lede{color:var(--muted);margin:10px 0 0;max-width:52ch}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}.wrap{padding:28px 16px 48px}}
+
+/* photo */
+.drop{position:relative;aspect-ratio:1/1;border-radius:18px;background:var(--panel);border:1.5px dashed var(--line);
+  display:grid;place-items:center;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.drop:hover,.drop.over{border-color:var(--o3)}
+.drop:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.drop.has{border-style:solid;border-color:transparent}
+.empty{text-align:center;padding:24px;max-width:30ch}
+.empty strong{display:block;font:700 20px/1.25 "Archivo",sans-serif;font-stretch:112%;margin-bottom:6px}
+.empty span{color:var(--muted);font-size:15px}
+.sky{width:76px;height:76px;margin:0 auto 16px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, var(--o3-soft), transparent 60%),conic-gradient(from 200deg,var(--o3),var(--no2),var(--o3));opacity:.85}
+.scan{position:absolute;left:0;right:0;height:38%;top:-38%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.35),transparent);pointer-events:none;display:none}
+.busy .scan{display:block;animation:scan 1.3s ease-in-out infinite}
+@keyframes scan{to{top:100%}}
+@media (prefers-reduced-motion:reduce){.busy .scan{animation:none;top:31%;opacity:.6}}
+.photo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+button,.btn{font:600 15px/1 "Public Sans",sans-serif;border-radius:999px;padding:13px 22px;border:1.5px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+details{margin-top:18px;background:var(--panel);border-radius:14px;padding:4px 18px}
+summary{cursor:pointer;padding:12px 0;font-weight:600}
+summary span{font-weight:400;color:var(--muted)}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:4px 0 16px}
+@media (max-width:520px){.fields{grid-template-columns:1fr}}
+label{font-size:14px;color:var(--muted);display:block}
+input{display:block;width:100%;margin-top:6px;font:500 16px "Public Sans",sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.hint{font-size:13px;color:var(--muted);margin:0 0 14px}
+
+/* readings */
+.readings{display:flex;flex-direction:column;gap:18px}
+.summary{font:700 clamp(20px,2.6vw,26px)/1.25 "Archivo",sans-serif;font-stretch:112%;margin:0 0 4px;min-height:2.5em}
+.summary.placeholder{color:var(--muted);font-weight:500}
+.gas{background:var(--panel);border-radius:18px;padding:22px 22px 20px;border-left:6px solid var(--c)}
+.gas.no2{--c:var(--no2);--soft:var(--no2-soft)} .gas.o3{--c:var(--o3);--soft:var(--o3-soft)}
+.gas h2{margin:0;font:600 15px/1.3 "Public Sans",sans-serif;color:var(--muted)}
+.gas h2 b{color:var(--c);font-weight:700}
+.val{display:flex;align-items:baseline;gap:10px;margin:8px 0 4px}
+.num{font:800 clamp(48px,7vw,68px)/1 "Archivo",sans-serif;font-stretch:125%;color:var(--c);font-variant-numeric:tabular-nums}
+.unit{color:var(--muted);font-size:15px}
+.band{display:inline-block;font-weight:600;font-size:14px;padding:4px 12px;border-radius:999px;background:var(--soft);color:var(--ink)}
+.advice{margin:10px 0 14px;color:var(--muted);font-size:15px}
+.scale{position:relative;height:10px;border-radius:999px;display:flex;overflow:visible}
+.scale i{flex:1;height:100%}
+.scale i:first-child{border-radius:999px 0 0 999px}.scale i:last-child{border-radius:0 999px 999px 0}
+.marker{position:absolute;top:-6px;width:4px;height:22px;border-radius:2px;background:var(--ink);transform:translateX(-50%);transition:left .6s cubic-bezier(.2,.8,.2,1)}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:8px}
+.dim .num{color:var(--line)} .dim .marker{display:none}
+.basis{margin:0;color:var(--muted);font-size:14px;min-height:1.4em}
+.pm{font-size:14px;color:var(--muted);margin-left:auto}
+.err{color:var(--b4);font-weight:600;min-height:1.4em;margin:12px 0 0}
+footer{margin-top:40px;color:var(--muted);font-size:13px;max-width:70ch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Sky Reading</h1>
+      <p class="lede">Upload an outdoor photo of the sky or street. We estimate nitrogen dioxide and ozone from how the air looks.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section aria-label="Photo">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a photo">
+        <div class="empty" id="empty">
+          <div class="sky" aria-hidden="true"></div>
+          <strong>Drop a photo here</strong>
+          <span>or click to choose one. JPG or PNG, a wide outdoor view works best.</span>
+        </div>
+        <img id="preview" alt="Your uploaded photo" hidden>
+        <div class="scan" aria-hidden="true"></div>
+      </div>
+      <input type="file" id="file" accept="image/*" class="sr" tabindex="-1">
+      <div class="photo-actions">
+        <button id="run" disabled>Estimate air quality</button>
+        <button id="change" class="ghost" hidden>Choose another photo</button>
+      </div>
+
+      <details id="extra">
+        <summary>Add local readings <span>(optional, sharper estimate)</span></summary>
+        <p class="hint">If you know when the photo was taken, add the time. If you also have PM2.5 and PM10 readings from a nearby monitor, add them too.</p>
+        <div class="fields">
+          <label>Time photo was taken<input type="time" id="hour"></label>
+          <label>PM2.5 (µg/m³)<input type="number" id="pm25" min="0" step="any" inputmode="decimal"></label>
+          <label>PM10 (µg/m³)<input type="number" id="pm10" min="0" step="any" inputmode="decimal"></label>
+        </div>
+      </details>
+      <p class="err" id="err" role="alert"></p>
+    </section>
+
+    <section class="readings" aria-live="polite">
+      <div>
+        <p class="summary placeholder" id="summary">Your reading will appear here.</p>
+        <p class="basis" id="basis"></p>
+      </div>
+      <article class="gas no2 dim" id="NO2">
+        <h2><b>NO₂</b> nitrogen dioxide</h2>
+        <div class="val"><span class="num">–</span><span class="unit">µg/m³</span><span class="pm"></span></div>
+        <span class="band">Waiting for a photo</span>
+        <p class="advice">Mostly from traffic and burning fuel.</p>
+        <div class="scale"><i style="background:var(--b0)"></i><i style="background:var(--b1)"></i><i style="background:var(--b2)"></i><i style="background:var(--b3)"></i><i style="background:var(--b4)"></i><i style="background:var(--b5)"></i><span class="marker"></span></div>
+        <div class="ticks"><span>Good</span><span>Severe</span></div>
+      </article>
+      <article class="gas o3 dim" id="O3">
+        <h2><b>O₃</b> ozone</h2>
+        <div class="val"><span class="num">–</span><span class="unit">µg/m³</span><span class="pm"></span></div>
+        <span class="band">Waiting for a photo</span>
+        <p class="advice">Forms in sunlight from other pollutants.</p>
+        <div class="scale"><i style="background:var(--b0)"></i><i style="background:var(--b1)"></i><i style="background:var(--b2)"></i><i style="background:var(--b3)"></i><i style="background:var(--b4)"></i><i style="background:var(--b5)"></i><span class="marker"></span></div>
+        <div class="ticks"><span>Good</span><span>Severe</span></div>
+      </article>
+    </section>
+  </div>
+
+  <footer id="foot">Estimates come from a model trained on photos from eight sites in India and Nepal. Treat them as a rough guide, not a measurement; for decisions about your health, check an official monitoring station. Bands follow India's CPCB air quality index.</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const drop = $('drop'), file = $('file'), preview = $('preview'), run = $('run');
+let current = null, scales = null;
+
+fetch('/api/info').then(r => r.json()).then(j => { scales = j.scales; }).catch(() => {});
+
+function pick(f){
+  if(!f) return;
+  if(!f.type.startsWith('image/')){ $('err').textContent = 'That file is not an image. Choose a JPG or PNG.'; return; }
+  current = f; $('err').textContent = '';
+  preview.src = URL.createObjectURL(f); preview.hidden = false; $('empty').hidden = true;
+  drop.classList.add('has'); run.disabled = false; $('change').hidden = false;
+  reset();
+}
+function reset(){
+  for(const t of ['NO2','O3']){
+    const el = $(t); el.classList.add('dim'); el.querySelector('.num').textContent = '–';
+    el.querySelector('.band').textContent = 'Ready to estimate'; el.querySelector('.pm').textContent = '';
+  }
+  $('summary').textContent = 'Press “Estimate air quality” to read this photo.'; $('summary').classList.add('placeholder');
+  $('basis').textContent = '';
+}
+drop.addEventListener('click', () => file.click());
+drop.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); file.click(); }});
+$('change').addEventListener('click', () => file.click());
+file.addEventListener('change', () => pick(file.files[0]));
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => pick(e.dataTransfer.files[0]));
+
+// position of value on the 6-band scale: each band takes 1/6 of the bar
+function pos(t, v){
+  const s = scales && scales[t]; if(!s) return 0;
+  let lo = 0;
+  for(let i = 0; i < s.length; i++){
+    const hi = s[i][0];
+    if(hi === null || v <= hi){
+      const span = hi === null ? lo : hi - lo;
+      const f = hi === null ? Math.min(1, (v - lo) / Math.max(span, 1)) : (v - lo) / (hi - lo);
+      return Math.min(99, (i + Math.max(0, f)) / s.length * 100);
+    }
+    lo = hi;
+  }
+  return 99;
+}
+
+run.addEventListener('click', async () => {
+  if(!current) return;
+  const fd = new FormData(); fd.append('image', current);
+  const h = $('hour').value;
+  if(h){ const [hh, mm] = h.split(':').map(Number); fd.append('hour', hh + mm / 60); }
+  fd.append('pm25', $('pm25').value); fd.append('pm10', $('pm10').value);
+  run.disabled = true; run.textContent = 'Reading the sky…'; drop.classList.add('busy'); $('err').textContent = '';
+  try{
+    const r = await fetch('/api/predict', {method:'POST', body:fd});
+    const j = await r.json();
+    if(!r.ok) throw new Error(j.error || 'The estimate failed. Try another photo.');
+    for(const t of ['NO2','O3']){
+      const d = j.readings[t], el = $(t);
+      el.classList.remove('dim');
+      el.querySelector('.num').textContent = d.value.toFixed(0);
+      el.querySelector('.band').textContent = d.band;
+      el.querySelector('.advice').textContent = d.advice;
+      el.querySelector('.marker').style.left = pos(t, d.value) + '%';
+      el.querySelector('.pm').textContent = d.typical_error ? 'usually within ±' + Math.round(d.typical_error) : '';
+    }
+    $('summary').textContent = j.summary; $('summary').classList.remove('placeholder');
+    $('basis').textContent = 'Based on ' + j.used + (j.time_source === 'photo' ? ' (time read from the photo)' : '') + '.';
+  }catch(e){ $('err').textContent = e.message; }
+  finally{ run.disabled = false; run.textContent = 'Estimate air quality'; drop.classList.remove('busy'); }
+});
+</script>
+</body>
+</html>

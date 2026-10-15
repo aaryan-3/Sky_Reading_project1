@@ -1,0 +1,300 @@
+{
+ "cv_location_mean": {
+  "NO2": {
+   "image": {
+    "MAE": [
+     18.101554046022958,
+     0.10405131739795526
+    ],
+    "RMSE": [
+     28.025667067629957,
+     0.26491657358106024
+    ],
+    "R2": [
+     0.4978124612229378,
+     0.009498548302116194
+    ],
+    "Pearson": [
+     0.7067976020129677,
+     0.0068281876673080225
+    ]
+   },
+   "group": {
+    "MAE": [
+     19.702319093552976,
+     0.10735044041758811
+    ],
+    "RMSE": [
+     30.026845494922195,
+     0.2991339935463542
+    ],
+    "R2": [
+     0.379925616572367,
+     0.012354409036246362
+    ],
+    "Pearson": [
+     0.6213698940647124,
+     0.008813548571701808
+    ]
+   }
+  },
+  "O3": {
+   "image": {
+    "MAE": [
+     16.9042437306418,
+     0.426301851645677
+    ],
+    "RMSE": [
+     25.986512888337405,
+     0.513225735777426
+    ],
+    "R2": [
+     0.3922602487479379,
+     0.024053728835210796
+    ],
+    "Pearson": [
+     0.6266937242829432,
+     0.01872695364212497
+    ]
+   },
+   "group": {
+    "MAE": [
+     15.287533810732826,
+     0.3940036754884256
+    ],
+    "RMSE": [
+     26.37333488071705,
+     0.660776497618786
+    ],
+    "R2": [
+     0.407364887201461,
+     0.02993941002331596
+    ],
+    "Pearson": [
+     0.6403098136818774,
+     0.021220484560453483
+    ]
+   }
+  }
+ },
+ "within_location": {
+  "NO2|image_only": {
+   "model": "effnet_lite4 + ridge",
+   "n_groups": 20,
+   "n_locations": 5,
+   "within_site_pearson": 0.633041620380242
+  },
+  "NO2|image_hour": {
+   "model": "effnet_lite4 + ridge",
+   "n_groups": 20,
+   "n_locations": 5,
+   "within_site_pearson": 0.6605570189416902
+  },
+  "NO2|image_pm_hour": {
+   "model": "densenet121 + ridge",
+   "n_groups": 20,
+   "n_locations": 5,
+   "within_site_pearson": 0.8195907829088928
+  },
+  "O3|image_only": {
+   "model": "resnet50 + ridge",
+   "n_groups": 22,
+   "n_locations": 5,
+   "within_site_pearson": 0.26694431491959086
+  },
+  "O3|image_hour": {
+   "model": "densenet121 + MLP",
+   "n_groups": 22,
+   "n_locations": 5,
+   "within_site_pearson": 0.8293721578489849
+  },
+  "O3|image_pm_hour": {
+   "model": "densenet121 + MLP",
+   "n_groups": 22,
+   "n_locations": 5,
+   "within_site_pearson": 0.7162203154152421
+  }
+ },
+ "per_location": {
+  "NO2|image_only": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 7.104284688393691
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 2.311265626828447
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 12.23553862783449
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 48.39227956880735
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 4,
+    "MAE": 40.11048946424644
+   },
+   "Mumbai": {
+    "n_groups": 4,
+    "MAE": 15.359034544398463
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 13.832060944573934
+   }
+  },
+  "NO2|image_hour": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 7.676043299705239
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 2.2562217573183356
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 11.905209763594623
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 52.06520120889557
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 4,
+    "MAE": 40.29867052432998
+   },
+   "Mumbai": {
+    "n_groups": 4,
+    "MAE": 13.263132353863675
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 14.172093760420974
+   }
+  },
+  "NO2|image_pm_hour": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 2.9108540363904503
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 1.58518755036492
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 9.564657683900519
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 32.969181272982475
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 4,
+    "MAE": 23.722978047381822
+   },
+   "Mumbai": {
+    "n_groups": 4,
+    "MAE": 14.59058379265003
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 4.985497487246138
+   }
+  },
+  "O3|image_only": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 10.145241658849361
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 29.1492701436824
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 24.339310397501016
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 79.65037928257725
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 5,
+    "MAE": 1.8983752346480007
+   },
+   "Mumbai": {
+    "n_groups": 5,
+    "MAE": 43.881616385778784
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 5.934824849085146
+   }
+  },
+  "O3|image_hour": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 3.852573846458446
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 14.10584415530998
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 9.75089254713895
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 70.46896016195919
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 5,
+    "MAE": 2.5867010468257234
+   },
+   "Mumbai": {
+    "n_groups": 5,
+    "MAE": 33.59992238168898
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 7.234990767268781
+   }
+  },
+  "O3|image_pm_hour": {
+   "Bengaluru": {
+    "n_groups": 4,
+    "MAE": 4.045199908204903
+   },
+   "Biratnagar, Nepal": {
+    "n_groups": 3,
+    "MAE": 14.14135457866909
+   },
+   "Dimapur, Nagaland": {
+    "n_groups": 1,
+    "MAE": 9.496829382160254
+   },
+   "ITO, Delhi": {
+    "n_groups": 1,
+    "MAE": 70.9252977942706
+   },
+   "Knowledge park, Greater Noida": {
+    "n_groups": 5,
+    "MAE": 3.1946671587617947
+   },
+   "Mumbai": {
+    "n_groups": 5,
+    "MAE": 29.312144549857454
+   },
+   "Tamil Nadu": {
+    "n_groups": 5,
+    "MAE": 11.829768388319803
+   }
+  }
+ }
+}

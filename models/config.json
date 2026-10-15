@@ -1,0 +1,49 @@
+{
+ "targets": [
+  "NO2",
+  "O3"
+ ],
+ "units": "dataset units (assumed ug/m3)",
+ "variants": {
+  "NO2": {
+   "image_hour": {
+    "file": "NO2_image_hour.npz",
+    "backbone": "effnet_lite4",
+    "head": "ridge",
+    "typical_error": 17.6
+   },
+   "image_only": {
+    "file": "NO2_image_only.npz",
+    "backbone": "effnet_lite4",
+    "head": "ridge",
+    "typical_error": 17.6
+   },
+   "image_pm_hour": {
+    "file": "NO2_image_pm_hour.npz",
+    "backbone": "densenet121",
+    "head": "ridge",
+    "typical_error": 10.8
+   }
+  },
+  "O3": {
+   "image_hour": {
+    "file": "O3_image_hour.npz",
+    "backbone": "densenet121",
+    "head": "mlp",
+    "typical_error": 14.8
+   },
+   "image_only": {
+    "file": "O3_image_only.npz",
+    "backbone": "resnet50",
+    "head": "ridge",
+    "typical_error": 20.4
+   },
+   "image_pm_hour": {
+    "file": "O3_image_pm_hour.npz",
+    "backbone": "densenet121",
+    "head": "mlp",
+    "typical_error": 15.0
+   }
+  }
+ }
+}
